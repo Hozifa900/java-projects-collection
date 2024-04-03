@@ -33,7 +33,7 @@ public class App {
             if (lastNameComparison != 0) {
                 return lastNameComparison;
             }
-            return Double.compare(e1.getYearlySalary(), e2.getYearlySalary()); // Descending order
+            return Double.compare(e2.getYearlySalary(), e1.getYearlySalary()); // for descending order
         });
         System.out.println();
         System.out.println("<--------- List of sorted Employees under condition: ----------->");
@@ -55,7 +55,9 @@ public class App {
         System.out.println("[");
         for (Employee employee : employees) {
             if (employee.getPensionPlan() == null) {
-                System.out.println(employee);
+                if (employee.getEmploymentDate().plusYears(4).plusMonths(11).isBefore(LocalDate.now())) {
+                    System.out.println(employee);
+                }
             }
 
         }
