@@ -1,0 +1,15 @@
+1- Office Manager should be able to enroll new Patients who require dental services.
+
+2- Office Manager should be able to book appointments for Patients with Dentists.
+
+3- The Dentists should be able to sign in to the system and view a listing of all their Appointments.
+
+4- Patients should be able to require dental services.
+
+5- Patients should be able to sign in to the system and view their appointments.
+
+6- Patients should be able to request to cancel or change their appointments.
+
+7- The system should prevent a Dentist from being given more than 5 appointments in any given week.
+
+8- The system should prevent a Patient from requesting a new appointment if they have an outstanding, unpaid bill for dental services they have received.

@@ -59,7 +59,6 @@ public class App {
                     System.out.println(employee);
                 }
             }
-
         }
         System.out.println("]");
         System.out.println();
