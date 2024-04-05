@@ -5,6 +5,8 @@ import com.lab1b.model.PensionPlan;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 public class App {
@@ -28,38 +30,38 @@ public class App {
     }
 
     private static void employeeList(List<Employee> employees) {
-        employees.sort((e1, e2) -> {
-            int lastNameComparison = e1.getLastName().compareTo(e2.getLastName());
-            if (lastNameComparison != 0) {
-                return lastNameComparison;
-            }
-            return Double.compare(e2.getYearlySalary(), e1.getYearlySalary()); // for descending order
-        });
+
+        // employees.sort((e1, e2) -> {
+        // int lastNameComparison = e1.getLastName().compareTo(e2.getLastName());
+        // if (lastNameComparison != 0) {
+        // return lastNameComparison;
+        // }
+        // return Double.compare(e2.getYearlySalary(), e1.getYearlySalary()); // for
+        // descending order
+        // });
         System.out.println();
         System.out.println("<--------- List of sorted Employees under condition: ----------->");
         System.out.println("[");
-        for (Employee employee : employees) {
-            System.out.println(employee);
-        }
+        employees.stream().sorted(Comparator.comparing(Employee::getLastName).thenComparing(Employee::getYearlySalary,
+                Comparator.reverseOrder())).forEach(System.out::println);
         System.out.println("]");
         System.out.println();
     }
 
     private static void upcomingEnrolleesReport(List<Employee> employees) {
-        employees.sort((e1, e2) -> {
-            return e1.getEmploymentDate().compareTo(e2.getEmploymentDate());
-        });
 
-        System.out.println();
         System.out.println("<--------- Monthly Upcoming Enrollees report: ----------->");
+
+        // employees.sort((e1, e2) -> {
+        // return e1.getEmploymentDate().compareTo(e2.getEmploymentDate());
+        // });
+
         System.out.println("[");
-        for (Employee employee : employees) {
-            if (employee.getPensionPlan() == null) {
-                if (employee.getEmploymentDate().plusYears(4).plusMonths(11).isBefore(LocalDate.now())) {
-                    System.out.println(employee);
-                }
-            }
-        }
+        employees.stream().sorted(Comparator.comparing(Employee::getEmploymentDate))
+                .filter((x) -> (x.getEmploymentDate().plusYears(5).minusMonths(1).isBefore(LocalDate.now())
+                        &&
+                        x.getEmploymentDate().plusYears(5).isAfter(LocalDate.now())))
+                .forEach(System.out::println);
         System.out.println("]");
         System.out.println();
 
