@@ -1,0 +1,25 @@
+
+Spring: An open-source framework for building enterprise Java applications, 
+offering features like dependency injection and aspect-oriented programming.
+
+Spring Boot: Framework built on top of Spring, simplifying the development of 
+standalone, production-ready Spring applications with auto-configuration and 
+convention-over-configuration.
+
+Relation between Spring Platform and Spring Boot: Spring Boot is an extension of 
+the Spring platform, providing enhanced developer productivity and simplifying 
+Spring application development.
+
+Relation between Spring Platform and Spring Framework: Spring Framework is the 
+core component of the Spring platform, providing foundational features for 
+building Java applications. Other projects like Spring Boot build upon the 
+Spring Framework.
+
+Dependency Injection (DI): A design pattern where objects are given their 
+dependencies rather than creating them internally. In Spring, DI is achieved 
+through Inversion of Control (IoC) containers like ApplicationContext.
+
+Inversion of Control (IoC): A principle in which the control flow of a program 
+is delegated to an external component. In Spring, IoC is facilitated through its 
+IoC container, which manages object lifecycle and dependencies, promoting 
+modularity and maintainability.
