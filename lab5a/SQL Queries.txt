@@ -1,0 +1,27 @@
+1- Display the list of ALL Dentists registered in the system, sorted in 
+ascending order of their lastNames:
+sql =>
+SELECT * FROM Dentist ORDER BY lastName ASC;
+
+
+2- Display the list of ALL Appointments for a given Dentist by their dentist_Id 
+number. Include in the result, the Patient information:
+sql =>
+SELECT appointment.*, patient.firstName AS patientFirstName, patient.lastName AS patientLastName
+FROM appointment
+INNER JOIN patient ON appointment.patient_Id = patient.patient_Id
+WHERE appointment.dentist_Id = [dentist_Id];
+
+
+3- Display the list of ALL Appointments that have been scheduled at a Surgery Location:
+sql =>
+SELECT appointment.*, surgery.locationName, surgery.address, surgery.telephoneNumber
+FROM Appointment appointment
+INNER JOIN SurgeryLocation surgery ON appointment.location_Id = surgery.location_Id;
+
+
+4- Display the list of the Appointments booked for a given Patient on a given Date:
+sql =>
+SELECT appointment.* FROM appointment 
+INNER JOIN patient ON appointment.patient_Id = patient.patient_Id
+WHERE patient.patient_Id = [patient_Id] AND appointment.appointmentDate = '[given_date]';
