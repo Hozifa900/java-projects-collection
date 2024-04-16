@@ -12,27 +12,24 @@ import com.lab6.lab6.model.Appointment;
 import com.lab6.lab6.model.Dentist;
 import com.lab6.lab6.model.Patient;
 import com.lab6.lab6.model.Surgery;
-import com.lab6.lab6.repository.PatientRepository;
 import com.lab6.lab6.services.DentistService;
 import com.lab6.lab6.services.PatientService;
 
 import lombok.experimental.var;
 
 @SpringBootApplication
-public class Lab6Application implements CommandLineRunner {
+public class Lab7Application implements CommandLineRunner {
 	@Autowired
 	PatientService patientService;
 	@Autowired
 	DentistService dentistService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(Lab6Application.class, args);
+		SpringApplication.run(Lab7Application.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("application is running ");
-
 		// <------------ Add the 1st patient ------------------------------->
 		List<Address> l = new ArrayList<>();
 		var patient = new Patient(1, "p100", "Gillian White", "3479863996", "hozifa.dev@gmail.com", null);
@@ -66,9 +63,9 @@ public class Lab6Application implements CommandLineRunner {
 		var patient4 = patientService.addPatient(patient);
 
 		// <------------ Create three dentists ----------------------------->
-		var dentist1 = dentistService.addDentist(new Dentist(1, "Tony Smith", "748778767", "gmail@gmail.com"));
-		var dentist2 = dentistService.addDentist(new Dentist(2, "Helen Person", "748778767", "gmail@gmail.com"));
-		var dentist3 = dentistService.addDentist(new Dentist(3, "Robin Plevin", "748778767", "gmail@gmail.com"));
+		var dentist1 = dentistService.addDentist(new Dentist(1, "Tony Smith", "748778767", "gmail1@gmail.com"));
+		var dentist2 = dentistService.addDentist(new Dentist(2, "Helen Person", "748778767", "gmail2@gmail.com"));
+		var dentist3 = dentistService.addDentist(new Dentist(3, "Robin Plevin", "748778767", "gmail3@gmail.com"));
 
 		// <----------- Add all appointments for 12-sep-13 date --------------------->
 		var appointment1 = patientService
@@ -85,32 +82,61 @@ public class Lab6Application implements CommandLineRunner {
 				.addAppointment(new Appointment(6, LocalDate.of(2013, 9, 12), "18.00", patient4, dentist3, null));
 
 		// <------------------ Add the All surgeries ------------------------------>
-		List<Appointment> list = new ArrayList<>();
-		var surgery1 = patientService.addSurgery(new Surgery(1, "S15", "Surgery1", null, null));
+		List<Appointment> appointmentList = new ArrayList<>();
+
+		// <--------- 1st surgery ------------------------------------------>
+		var surgery1 = patientService.addSurgery(new Surgery(1, "S15", "Surgery1",
+				appointmentList, null));
+
+		// <--------- 2nd surgery ------------------------------------------>
+		var surgery2 = new Surgery(2, "S10", "Surgery2",
+				appointmentList, null);
+		surgery2 = patientService.addSurgery(surgery2);
+
+		// <--------- 3rd surgery ------------------------------------------>
+		var surgery3 = new Surgery(3, "S13", "Surgery3",
+				appointmentList, null);
+		surgery3 = patientService.addSurgery(surgery3);
+
+		// <-------- update the appointment data update the surgery_id ------->
+		// <------- update appointment one ----------------------------------->
 		appointment1.setSurgery(surgery1);
+		patientService.addAppointment(appointment1);
+
+		// <------- update appointment two ----------------------------------->
 		appointment2.setSurgery(surgery1);
-		appointment5.setSurgery(surgery1);
-		list.add(appointment1);
-		list.add(appointment2);
-		list.add(appointment5);
-		surgery1.setAppointments(list);
-		patientService.addSurgery(surgery1);
+		patientService.addAppointment(appointment2);
 
-		var surgery2 = patientService.addSurgery(new Surgery(2, "S10", "Surgery2", null, null));
+		// <------- update appointment three ----------------------------------->
 		appointment3.setSurgery(surgery2);
-		appointment4.setSurgery(surgery2);
-		list.clear();
-		list.add(appointment3);
-		list.add(appointment4);
-		surgery2.setAppointments(list);
-		patientService.addSurgery(surgery2);
+		patientService.addAppointment(appointment3);
 
-		var surgery3 = patientService.addSurgery(new Surgery(3, "S13", "Surgery3", null, null));
+		// <------- update appointment four ----------------------------------->
+		appointment4.setSurgery(surgery2);
+		patientService.addAppointment(appointment4);
+
+		// <------- update appointment five ----------------------------------->
+		appointment5.setSurgery(surgery1);
+		patientService.addAppointment(appointment5);
+
+		// <------- update appointment six --------
 		appointment6.setSurgery(surgery3);
-		list.clear();
-		list.add(appointment6);
-		surgery3.setAppointments(list);
-		patientService.addSurgery(surgery3);
+		patientService.addAppointment(appointment6);
+
+		// get the whole data
+		List<Object[]> data = patientService.getAppointmentDetails();
+		System.out.println("List of all appointment with data: ");
+		System.out.println("------------------------------------------------------");
+		System.out.println("|DentistName | PatientName | patNo | AppoDate | SurNo|");
+		System.out.println("-----------------------------------------------------");
+		for (Object[] objects : data) {
+			for (Object o : objects) {
+				System.out.print(o + ", ");
+			}
+			System.out.println();
+			System.out.println("-------------------------------------------------");
+
+		}
 
 	}
 
